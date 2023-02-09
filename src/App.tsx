@@ -3,11 +3,13 @@ import { FormEventHandler, useState } from 'react'
 function App() {
   const [searchQuery, setSearchQuery] = useState<string>('')
 
-  const submitHandler: FormEventHandler = (
+  const submitHandler: FormEventHandler = async (
     e: React.FormEvent<HTMLInputElement>,
   ) => {
     e.preventDefault()
-    console.log(searchQuery)
+    await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchQuery}`)
+      .then((res) => res.json())
+      .then((data) => console.log(data))
   }
 
   return (
