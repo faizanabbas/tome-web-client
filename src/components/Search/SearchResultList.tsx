@@ -6,7 +6,7 @@ const SearchResultList = () => {
   const { searchResults } = useContext(SearchContext)
 
   return (
-    <ul className="flex flex-col gap-2 bg-white max-h-96 overflow-y-scroll">
+    <ul className="flex flex-col gap-2 bg-white dark:bg-slate-800 max-h-96 overflow-y-scroll">
       {searchResults.map((searchResult) => (
         <SearchResult key={searchResult.id} searchResult={searchResult} />
       ))}

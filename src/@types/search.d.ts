@@ -1,25 +1,28 @@
 import { createContext, Dispatch, SetStateAction, ReactNode } from 'react'
 
-export type IVolume = {
+export type Volume = {
   id: string
   volumeInfo: {
     authors?: string[]
     imageLinks?: { thumbnail: string }
     previewLink: string
     publishedDate?: string
+    pageCount?: string
     title: string
   }
 }
 
 export interface ISearchContext {
-  searchResults: IVolume[]
-  setSearchResults: Dispatch<SetStateAction<IVolume[]>>
+  searchResults: Volume[]
+  setSearchResults: Dispatch<SetStateAction<Volume[]>>
+  searchQuery: string
+  setSearchQuery: Dispatch<SetStateAction<string>>
 }
 
 export type SearchContextProviderProps = {
-  children: ReadNode
+  children: ReactNode
 }
 
 export type SearchResultProps = {
-  searchResult: IVolume
+  searchResult: Volume
 }
