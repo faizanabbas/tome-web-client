@@ -1,16 +1,6 @@
 import React, { FormEventHandler, useState } from 'react'
 import defaultThumbnail from '../assets/no_cover_thumb.gif'
-
-interface IVolume {
-  id: string
-  volumeInfo: {
-    authors?: string[]
-    imageLinks?: { thumbnail: string }
-    previewLink: string
-    publishedDate?: string
-    title: string
-  }
-}
+import { IVolume } from '../books'
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState<string>('')
