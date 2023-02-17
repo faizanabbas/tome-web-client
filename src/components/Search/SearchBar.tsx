@@ -2,7 +2,7 @@ import React, { FormEventHandler, useState, useContext } from 'react'
 import { SearchContext } from '../../context/SearchContext'
 
 const SearchBar = () => {
-  const [searchQuery, setSearchQuery] = useState<string>('')
+  const { searchQuery, setSearchQuery } = useContext(SearchContext)
 
   const { setSearchResults } = useContext(SearchContext)
 
@@ -32,7 +32,7 @@ const SearchBar = () => {
   return (
     <form className="w-full" onSubmit={(e) => submitHandler(e)}>
       <input
-        className="w-full h-10 px-3 outline-none"
+        className="w-full h-10 pl-3 border-none rounded outline-none dark:bg-slate-800"
         type="text"
         placeholder="Search for a book..."
         value={searchQuery}

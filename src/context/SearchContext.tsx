@@ -1,13 +1,15 @@
 import { createContext, useState } from 'react'
 import {
   ISearchContext,
-  IVolume,
+  Volume,
   SearchContextProviderProps,
 } from '../@types/search'
 
 const defaultContext = {
   searchResults: [],
-  setSearchResults: (searchResults: IVolume[]) => {},
+  setSearchResults: (searchResults: Volume[]) => {},
+  searchQuery: '',
+  setSearchQuery: (searchQuery: string) => {},
 } as ISearchContext
 
 export const SearchContext = createContext<ISearchContext>(defaultContext)
@@ -15,10 +17,13 @@ export const SearchContext = createContext<ISearchContext>(defaultContext)
 export default function SearchContextProvider({
   children,
 }: SearchContextProviderProps) {
-  const [searchResults, setSearchResults] = useState<IVolume[]>([])
+  const [searchResults, setSearchResults] = useState<Volume[]>([])
+  const [searchQuery, setSearchQuery] = useState<string>('')
 
   return (
-    <SearchContext.Provider value={{ searchResults, setSearchResults }}>
+    <SearchContext.Provider
+      value={{ searchResults, setSearchResults, searchQuery, setSearchQuery }}
+    >
       {children}
     </SearchContext.Provider>
   )
