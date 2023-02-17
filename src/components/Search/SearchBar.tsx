@@ -16,7 +16,9 @@ const SearchBar = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data)
-        setSearchResults(data.items)
+        if (!(typeof data.items === 'undefined')) {
+          setSearchResults(data.items)
+        }
       })
   }
 

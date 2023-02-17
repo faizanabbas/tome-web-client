@@ -7,11 +7,9 @@ const SearchResultList = () => {
 
   return (
     <ul className="flex flex-col gap-2 bg-white max-h-96 overflow-y-scroll">
-      {typeof searchResults === 'undefined'
-        ? ''
-        : searchResults.map((searchResult) => (
-            <SearchResult searchResult={searchResult} />
-          ))}
+      {searchResults.map((searchResult) => (
+        <SearchResult key={searchResult.id} searchResult={searchResult} />
+      ))}
     </ul>
   )
 }

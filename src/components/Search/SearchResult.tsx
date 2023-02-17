@@ -3,7 +3,7 @@ import defaultThumbnail from '../../assets/no_cover_thumb.gif'
 
 const SearchResult = ({ searchResult }: SearchResultProps) => {
   return (
-    <li key={searchResult.id} className="mx-1 p-1 flex gap-3">
+    <li className="mx-1 p-1 flex gap-3">
       <img
         className="rounded w-10"
         src={
