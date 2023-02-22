@@ -2,13 +2,16 @@
 
 Tome Web Client is a web application for searching and finding books.
 
+## Technologies Used
+React, TypeScript, Tailwind
+
 ## Demo
 [https://tome-web-client.netlify.app/](https://tome-web-client.netlify.app/)
 
 ## Installation
 
-`npm install`
+`pnpm install`
 
 ## Usage
 
-`npm run dev`
+`pnpm run dev`
