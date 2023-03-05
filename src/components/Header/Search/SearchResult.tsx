@@ -4,6 +4,7 @@ import { BookshelfContext } from '../../../context/BookshelfContext'
 import { SearchContext } from '../../../context/SearchContext'
 
 import defaultThumbnail from '../../../assets/no_cover_thumb.gif'
+import { generateCommaSeparatedString } from '../../../utils/string-utils'
 
 interface ISearchResultProps {
   result: IBook
@@ -19,18 +20,6 @@ export default function SearchResult({ result }: ISearchResultProps) {
     setResults([])
   }
 
-  const generateAuthorsString = (authors: string[]): string => {
-    let str = ''
-    authors.forEach((author, i) => {
-      if (i < authors.length - 1) {
-        str += author + ', '
-      } else {
-        str += author
-      }
-    })
-    return str
-  }
-
   return (
     <button
       onClick={() => handler()}
@@ -43,7 +32,9 @@ export default function SearchResult({ result }: ISearchResultProps) {
         />
         <div className="flex flex-col">
           <span className="">{result.title}</span>
-          <span>{result.authors && generateAuthorsString(result.authors)}</span>
+          <span>
+            {result.authors && generateCommaSeparatedString(result.authors)}
+          </span>
           <span className="text-xs">{result.publishedDate?.getFullYear()}</span>
         </div>
       </li>
