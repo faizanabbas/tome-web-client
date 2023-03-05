@@ -29,10 +29,10 @@ export const performSearch = async (query: string): Promise<IBook[]> => {
     return imageURLs ? imageURLs['thumbnail'] || null : null
   }
 
-  const getDate = (info: any): Date | null => {
+  const getDate = (info: any): number | null => {
     const publishedDate: number | null =
       Date.parse(info['publishedDate']) || null
-    return publishedDate ? new Date(publishedDate) : null
+    return publishedDate ? new Date(publishedDate).getFullYear() : null
   }
 
   let books: IBook[] = []
@@ -57,7 +57,7 @@ export const performSearch = async (query: string): Promise<IBook[]> => {
           imageURL,
           currentPage: 0,
           pageCount,
-          publishedDate,
+          publishedYear: publishedDate,
         })
       }
     }

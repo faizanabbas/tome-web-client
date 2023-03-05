@@ -35,7 +35,7 @@ export default function SearchResult({ result }: ISearchResultProps) {
           <span>
             {result.authors && generateCommaSeparatedString(result.authors)}
           </span>
-          <span className="text-xs">{result.publishedDate?.getFullYear()}</span>
+          <span className="text-xs">{result.publishedYear}</span>
         </div>
       </li>
     </button>

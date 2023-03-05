@@ -6,5 +6,5 @@ export interface IBook {
   imageURL: string | null
   currentPage: number
   pageCount: number
-  publishedDate: Date | null
+  publishedYear: number | null
 }
