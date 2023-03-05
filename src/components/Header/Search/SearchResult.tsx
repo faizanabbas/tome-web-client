@@ -11,7 +11,7 @@ interface ISearchResultProps {
 }
 
 export default function SearchResult({ result }: ISearchResultProps) {
-  const { addToBookshelf } = useContext(BookshelfContext)
+  const { bookshelf, addToBookshelf } = useContext(BookshelfContext)
   const { setQuery, setResults } = useContext(SearchContext)
 
   const handler = () => {
@@ -20,24 +20,26 @@ export default function SearchResult({ result }: ISearchResultProps) {
     setResults([])
   }
 
-  return (
-    <button
-      onClick={() => handler()}
-      className="w-full p-1 hover:bg-slate-200 text-left rounded"
-    >
-      <li key={result.ISBN} className="flex gap-2">
-        <img
-          src={result.imageURL ?? defaultThumbnail}
-          className="w-10 rounded-sm"
-        />
-        <div className="flex flex-col">
-          <span className="">{result.title}</span>
-          <span>
-            {result.authors && generateCommaSeparatedString(result.authors)}
-          </span>
-          <span className="text-xs">{result.publishedYear}</span>
-        </div>
-      </li>
-    </button>
-  )
+  if (!bookshelf.find((book) => book.ISBN === result.ISBN)) {
+    return (
+      <button
+        onClick={() => handler()}
+        className="w-full p-1 hover:bg-slate-200 text-left rounded"
+      >
+        <li key={result.ISBN} className="flex gap-2">
+          <img
+            src={result.imageURL ?? defaultThumbnail}
+            className="w-10 rounded-sm"
+          />
+          <div className="flex flex-col">
+            <span className="">{result.title}</span>
+            <span>
+              {result.authors && generateCommaSeparatedString(result.authors)}
+            </span>
+            <span className="text-xs">{result.publishedYear}</span>
+          </div>
+        </li>
+      </button>
+    )
+  }
 }
