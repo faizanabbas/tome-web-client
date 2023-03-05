@@ -4,6 +4,7 @@ import { IBook } from '../@types/book'
 interface IBookshelfContext {
   bookshelf: IBook[]
   addToBookshelf: (newBook: IBook) => void
+  updateBookProgress: (book: IBook, newCurrentPage: number) => void
   removeFromBookshelf: (ISBN: string) => void
 }
 
@@ -14,6 +15,7 @@ interface IBookshelfContextProviderProps {
 const initialContext = {
   bookshelf: [],
   addToBookshelf: (newBook: IBook) => {},
+  updateBookProgress: (book: IBook, newCurrentPage: number) => {},
   removeFromBookshelf: (ISBN: string) => {},
 } as IBookshelfContext
 
@@ -41,6 +43,21 @@ export const BookshelfContextProvider = ({
     setBookshelf((prevBookshelf) => [...prevBookshelf, newBook])
   }
 
+  const updateBookProgress = (book: IBook, newCurrentPage: number) => {
+    if (newCurrentPage < 0 || newCurrentPage > book.pageCount) return
+
+    const newBookshelf = [...bookshelf]
+
+    setBookshelf(
+      newBookshelf.map((b) => {
+        if (b.ISBN === book.ISBN) {
+          b.currentPage = newCurrentPage
+        }
+        return b
+      }),
+    )
+  }
+
   const removeFromBookshelf = (ISBN: string) => {
     setBookshelf((prevBookshelf) =>
       prevBookshelf.filter((book) => book.ISBN !== ISBN),
@@ -49,7 +66,12 @@ export const BookshelfContextProvider = ({
 
   return (
     <BookshelfContext.Provider
-      value={{ bookshelf, addToBookshelf, removeFromBookshelf }}
+      value={{
+        bookshelf,
+        addToBookshelf,
+        updateBookProgress,
+        removeFromBookshelf,
+      }}
     >
       {children}
     </BookshelfContext.Provider>
