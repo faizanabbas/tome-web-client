@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { IBook } from '../../@types/book'
 
 import defaultThumbnail from '../../assets/no_cover_thumb.gif'
@@ -10,10 +10,17 @@ interface IBookshelfItemProps {
 }
 
 export default function BookshelfItem({ book }: IBookshelfItemProps) {
-  const { updateBookProgress } = useContext(BookshelfContext)
+  const { updateBookProgress, removeFromBookshelf } =
+    useContext(BookshelfContext)
+
+  const [areHovering, setHovering] = useState(false)
 
   return (
-    <li className="h-20 flex gap-2 justify-between items-center pb-2 border-b last:pb-0 last:border-0">
+    <li
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      className="h-24 flex gap-2 justify-between items-center pb-2 border-b last:pb-0 last:border-0"
+    >
       <div className="flex gap-2">
         <div className="w-18">
           <img
@@ -21,24 +28,42 @@ export default function BookshelfItem({ book }: IBookshelfItemProps) {
             className="w-12 rounded"
           />
         </div>
-        <div className="flex flex-col">
-          <span className="font-bold text-sm">{book.title}</span>
-          <span className="text-xs">
-            {book.authors && generateCommaSeparatedString(book.authors)}
-          </span>
-          <span className="text-xs">{book.publishedYear}</span>
+        <div className="flex flex-col justify-between">
+          <div className="flex flex-col">
+            <span className="font-bold text-sm">{book.title}</span>
+            <span className="text-xs">
+              {book.authors && generateCommaSeparatedString(book.authors)}
+            </span>
+            <span className="text-xs">{book.publishedYear}</span>
+          </div>
+          {areHovering ? (
+            <button
+              onClick={() => removeFromBookshelf(book.ISBN)}
+              className="text-red-500 text-xs text-left"
+            >
+              Remove
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
-      <div className="text-xs flex flex-col gap-0.5">
-        <button onClick={() => updateBookProgress(book, book.currentPage + 1)}>
-          &#43;
-        </button>
-        <span className="">
-          {book.currentPage} / {book.pageCount}
-        </span>
-        <button onClick={() => updateBookProgress(book, book.currentPage - 1)}>
-          &#8722;
-        </button>
+      <div>
+        <div className="text-xs flex flex-col gap-0.5 w-20 items-center">
+          <button
+            onClick={() => updateBookProgress(book, book.currentPage + 1)}
+          >
+            &#43;
+          </button>
+          <span className="">
+            {book.currentPage} / {book.pageCount}
+          </span>
+          <button
+            onClick={() => updateBookProgress(book, book.currentPage - 1)}
+          >
+            &#8722;
+          </button>
+        </div>
       </div>
     </li>
   )
