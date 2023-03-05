@@ -13,12 +13,12 @@ export default function BookshelfItem({ book }: IBookshelfItemProps) {
   const { updateBookProgress } = useContext(BookshelfContext)
 
   return (
-    <li className="flex gap-2 justify-between items-center pb-2 border-b last:pb-0 last:border-0">
+    <li className="h-20 flex gap-2 justify-between items-center pb-2 border-b last:pb-0 last:border-0">
       <div className="flex gap-2">
         <div className="w-18">
           <img
             src={book.imageURL ?? defaultThumbnail}
-            className="h-20 rounded"
+            className="w-12 rounded"
           />
         </div>
         <div className="flex flex-col">
