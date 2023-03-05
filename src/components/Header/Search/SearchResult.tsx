@@ -41,5 +41,7 @@ export default function SearchResult({ result }: ISearchResultProps) {
         </li>
       </button>
     )
+  } else {
+    return <></>
   }
 }
