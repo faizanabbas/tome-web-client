@@ -1,10 +1,10 @@
 export const generateCommaSeparatedString = (strArray: string[]): string => {
   let str = ''
-  strArray.forEach((author, i) => {
+  strArray.forEach((item, i) => {
     if (i < strArray.length - 1) {
-      str += author + ', '
+      str += item + ', '
     } else {
-      str += author
+      str += item
     }
   })
   return str
