@@ -1,3 +1,4 @@
+import Bookshelf from './components/Bookshelf/Bookshelf'
 import Header from './components/Header/Header'
 import { BookshelfContextProvider } from './context/BookshelfContext'
 
@@ -7,6 +8,7 @@ export default function App() {
       <div className="max-w-screen-md mx-auto">
         <BookshelfContextProvider>
           <Header />
+          <Bookshelf />
         </BookshelfContextProvider>
       </div>
     </div>
