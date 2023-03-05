@@ -1,20 +1,10 @@
-import { Dispatch, ReactNode, SetStateAction } from "react"
-
 export interface IBook {
-  id: string
+  ISBN: string
   title: string
-  author: string
-  publishedYear: number
-  progress: number
+  authors: string[] | null
+  description: string | null
+  imageURL: string | null
+  currentPage: number
   pageCount: number
-  imageURL: string
-}
-
-export interface IBookListContext {
-  bookList: IBook[],
-  setBookList: Dispatch<SetStateAction<IBook[]>>
-}
-
-export type BookListContextProviderProps = {
-  children: ReactNode
+  publishedYear: number | null
 }

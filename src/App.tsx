@@ -1,20 +1,16 @@
-import BookList from './components/BookList/BookList'
-import Header from './components/Header'
-import BookListProvider from './context/BookListContext'
+import Bookshelf from './components/Bookshelf/Bookshelf'
+import Header from './components/Header/Header'
+import { BookshelfContextProvider } from './context/BookshelfContext'
 
-function App() {
+export default function App() {
   return (
-    <BookListProvider>
-      <div className="App h-screen dark:bg-black dark:text-white mt-0 px-4">
-        <div className="container relative mx-auto py-4 px-4 max-w-5xl">
+    <div className="h-screen p-4">
+      <div className="max-w-screen-md mx-auto">
+        <BookshelfContextProvider>
           <Header />
-          <div className="absolute top-24 left-0 right-0 w-full">
-            <BookList />
-          </div>
-        </div>
+          <Bookshelf />
+        </BookshelfContextProvider>
       </div>
-    </BookListProvider>
+    </div>
   )
 }
-
-export default App
