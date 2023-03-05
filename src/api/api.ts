@@ -2,16 +2,17 @@ import { IBook } from '../@types/book'
 
 const baseURL = 'https://www.googleapis.com/books/v1/'
 
-export const bookSearch = async (query: string): Promise<IBook[]> => {
+export const performSearch = async (query: string): Promise<IBook[]> => {
+  if (query.length === 0) return [] as IBook[]
+
   const URL = baseURL + `volumes?q=${query}`
   const data = await fetch(URL).then((res) => res.json())
+  const items = data['items']
 
-  if (!data['items']) return []
+  if (!items) return []
 
-  let books: IBook[] = []
-  data['items'].forEach((item: any) => {
-    const identifiers = item['volumeInfo']['industryIdentifiers'] ?? []
-    let ISBN = null
+  const getISBN = (identifiers: []): string | null => {
+    let ISBN: string | null = null
     identifiers.forEach((identifier: any) => {
       if (
         identifier['type'] === 'ISBN_10' ||
@@ -20,21 +21,45 @@ export const bookSearch = async (query: string): Promise<IBook[]> => {
         ISBN = identifier['identifier']
       }
     })
+    return ISBN
+  }
 
-    const pageCount = item['volumeInfo']['pageCount'] || null
+  const getImageURL = (info: any): string | null => {
+    const imageURLs = info['imageLinks']
+    return imageURLs ? imageURLs['thumbnail'] || null : null
+  }
 
-    if (ISBN && pageCount) {
-      books.push({
-        ISBN,
-        title: item['volumeInfo']['title'] || null,
-        authors: item['volumeInfo']['authors'] || null,
-        description: item['volumeInfo']['description'] || null,
-        imageURL: item['volumeInfo']['imageLinks']['thumbnail'] || null,
-        currentPage: 0,
-        pageCount,
-        publishedDate:
-          new Date(Date.parse(item['volumeInfo']['publishedDate'])) || null,
-      })
+  const getDate = (info: any): Date | null => {
+    const publishedDate: number | null =
+      Date.parse(info['publishedDate']) || null
+    return publishedDate ? new Date(publishedDate) : null
+  }
+
+  let books: IBook[] = []
+  items.forEach((item: any) => {
+    const info = item['volumeInfo']
+
+    if (info) {
+      const ISBN = getISBN(info['industryIdentifiers'] || [])
+
+      const title: string | null = info['title'] || null
+      const pageCount: number | null = info['pageCount'] || null
+
+      if (ISBN && title && pageCount) {
+        const imageURL = getImageURL(info)
+        const publishedDate = getDate(info)
+
+        books.push({
+          ISBN,
+          title,
+          authors: info['authors'] || null,
+          description: info['description'] || null,
+          imageURL,
+          currentPage: 0,
+          pageCount,
+          publishedDate,
+        })
+      }
     }
   })
 
