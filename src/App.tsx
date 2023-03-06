@@ -4,8 +4,8 @@ import { BookshelfContextProvider } from './context/BookshelfContext'
 
 export default function App() {
   return (
-    <div className="h-screen p-4">
-      <div className="max-w-screen-md mx-auto">
+    <div className="h-screen pt-4 px-2 md:px-4">
+      <div className="max-w-screen-2xl mx-auto">
         <BookshelfContextProvider>
           <Header />
           <Bookshelf />
