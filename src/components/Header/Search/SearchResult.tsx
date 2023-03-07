@@ -24,7 +24,7 @@ export default function SearchResult({ result }: ISearchResultProps) {
     return (
       <button
         onClick={() => handler()}
-        className="w-full p-1 hover:bg-slate-200 text-left rounded"
+        className="w-full p-1 hover:bg-gray-200 dark:hover:bg-gray-800 text-left rounded"
       >
         <li key={result.ISBN} className="flex gap-2">
           <img
