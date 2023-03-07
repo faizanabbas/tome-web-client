@@ -32,7 +32,7 @@ export default function BookshelfItem({ book }: IBookshelfItemProps) {
   document.addEventListener('mousedown', closeOpenMenu)
 
   return (
-    <tr className="border-b border-gray-20">
+    <tr className="border-b border-gray-200 dark:border-gray-800">
       <td className="px-2 min-w-[60px] w-10 py-2">
         <img
           src={book.imageURL ?? defaultThumbnail}
@@ -46,7 +46,7 @@ export default function BookshelfItem({ book }: IBookshelfItemProps) {
       <td className="px-2 w-16 hidden md:table-cell">{book.publishedYear}</td>
       <td className="px-2 w-48">
         <div className="w-full flex flex-col md:flex-row gap-2 items-center rounded">
-          <div className="w-full bg-gray-200 rounded h-2.5">
+          <div className="w-full bg-gray-200 dark:bg-gray-800 rounded h-2.5">
             <div
               className="bg-blue-600 h-2.5 rounded"
               style={{ width: `${progress}%` }}
@@ -58,13 +58,13 @@ export default function BookshelfItem({ book }: IBookshelfItemProps) {
             </span>
             <button
               onClick={() => updateBookProgress(book, book.currentPage - 1)}
-              className="bg-gray-50 hover:bg-gray-100 focus:bg-gray-200 hover:shadow focus:shadow-inner  text-gray-700 h-5 w-6 rounded-l"
+              className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 focus:bg-gray-200 dark:focus:bg-gray-900 hover:shadow focus:shadow-inner  text-gray-700 dark:text-white h-5 w-6 rounded-l"
             >
               -
             </button>
             <button
               onClick={() => updateBookProgress(book, book.currentPage + 1)}
-              className="bg-gray-50 hover:bg-gray-100 focus:bg-gray-200 hover:shadow focus:shadow-inner text-gray-700 h-5 w-6 rounded-r"
+              className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 focus:bg-gray-200 dark:focus:bg-gray-900 hover:shadow focus:shadow-inner  text-gray-700 dark:text-white h-5 w-6 rounded-r"
             >
               +
             </button>
@@ -76,7 +76,7 @@ export default function BookshelfItem({ book }: IBookshelfItemProps) {
           <div>
             <button
               type="button"
-              className="bg-white flex items-center justify-center h-5 w-5 p-3 text-xs font-medium text-gray-700"
+              className="flex items-center justify-center h-5 w-5 p-3 text-xs font-medium text-gray-700 dark:text-white"
               id="options-menu"
               onClick={() => toggleOpenMenu()}
             >
@@ -84,10 +84,10 @@ export default function BookshelfItem({ book }: IBookshelfItemProps) {
             </button>
           </div>
           {openMenu ? (
-            <div className="absolute mt-2 ml-[-4em] origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+            <div className="absolute mt-0 ml-[-4em] origin-top-right bg-white dark:bg-gray-900 rounded-md shadow-lg ring-1 ring-black dark:ring-transparent ring-opacity-5">
               <div className="py-1 ">
                 <button
-                  className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100"
+                  className="block px-4 py-2 text-md text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => removeFromBookshelf(book.ISBN)}
                 >
                   <span className="flex flex-col">Remove</span>
